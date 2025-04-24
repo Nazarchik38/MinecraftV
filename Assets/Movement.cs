@@ -57,4 +57,3 @@ public class Movement : MonoBehaviour
         Look_FixedUpdate();
     }
 }
- 
