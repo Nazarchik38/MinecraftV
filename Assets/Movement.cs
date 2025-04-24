@@ -4,12 +4,23 @@ public class Movement : MonoBehaviour
 {
 
     public CharacterController character;
+
+    public Transform cameraObject;
+
     public Vector2 moveInput;
+
     public Vector2 lookInput;
+
     public Vector2 lookSense;
     
     
     public float moveSpeed = 5f;
+
+    public float currentAngleX;
+
+    public float minAngleX;
+
+    public float maxAngleX;
      
 
     /************************/
@@ -33,6 +44,14 @@ public class Movement : MonoBehaviour
     {
         Vector3 look = new Vector3(0, lookInput.x, 0);
         character.transform.Rotate(look * Time.fixedDeltaTime * lookSense.x);
+
+
+        currentAngleX -= lookInput.y * Time.fixedDeltaTime*lookSense.y;
+        currentAngleX = Mathf.Clamp(currentAngleX, minAngleX, maxAngleX);
+
+        Vector3 cameraAngles=cameraObject.transform.eulerAngles;
+        cameraAngles.x=currentAngleX;
+        cameraObject.transform.eulerAngles=cameraAngles;
     }
 
 
@@ -42,7 +61,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
-        
+        Cursor.lockState=CursorLockMode.Locked;
     }
 
      
